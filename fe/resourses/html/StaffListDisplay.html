@@ -3,97 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/StaffListDisplay.css">
     <title>Danh sách nhân viên</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #f8f8f8;
-            padding-top: 20px;
-            position: fixed;
-            height: 100%;
-            border-right: 1px solid #ddd;
-        }
-        .sidebar a {
-            display: block;
-            color: #333;
-            padding: 10px 15px;
-            text-decoration: none;
-            margin-bottom: 5px;
-        }
-        .sidebar a:hover {
-            background-color: #ddd;
-        }
-        .main-content {
-            margin-left: 210px;
-            padding: 20px;
-            width: 100%;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
 </head>
 <body>
-    <div class="sidebar">
-        <a href="#">Trang chủ</a>
-        <a href="#">Báo cáo</a>
-        <a href="#">Nhân viên</a>
-        <a href="#">Cài đặt</a>
+    <div class="header">
+        <div class="logo-container">
+            <img src="../../assets/cukcuk-logo.png" alt="Logo" class="logo">
+            <div class="list-branch">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle branch-btn" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      Chọn chi nhánh
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <li><a class="dropdown-item" href="#">Chi nhánh TP Hồ Chí Minh</a></li>
+                      <li><a class="dropdown-item" href="#">Chi nhánh Hà Nội</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="avatar-container">
+            <img src="../../assets/icon/avatar-default.png" alt="Avatar" class="avatar">
+            <div class="avatar-name">Lê Công Nam</div>
+        </div>
     </div>
-    <div class="main-content">
-        <h1>Danh sách nhân viên</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Mã nhân viên</th>
-                    <th>Họ tên đầy đủ</th>
-                    <th>Giới tính</th>
-                    <th>Địa chỉ</th>
-                    <th>Ngày sinh</th>
-                    <th>Địa chỉ email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>NV001</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>Nam</td>
-                    <td>Hà Nội</td>
-                    <td>01/01/1985</td>
-                    <td>nguyenvana@example.com</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>NV002</td>
-                    <td>Trần Thị B</td>
-                    <td>Nữ</td>
-                    <td>TP. Hồ Chí Minh</td>
-                    <td>15/03/1990</td>
-                    <td>tranthib@example.com</td>
-                </tr>
-                <!-- Thêm các nhân viên khác tại đây -->
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <img src="../../assets/icon/dashboard.png" alt="">
+                    <a href="#">Trang chủ</a>
+                </li>
+                <li>
+                    <img src="../../assets/icon/report.png" alt="">
+                    <a href="#">Báo cáo</a>
+                </li>
+                <li>
+                    <img src="../../assets/icon/dic-employee.png" alt="">
+                    <a href="#">Nhân viên</a>
+                </li>
+                <li>
+                    <img src="../../assets/icon/setting.png" alt="">
+                    <a href="#">Cài đặt</a>
+                </li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="main-content_header">
+                <div style="font-size:  4.5vh;">Quản lý nhân viên</div>
+                <button>
+                    <img src="../../assets/icon/add.png" alt="">
+                    Thêm mới
+                </button>
+            </div>
+            <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo mã , họ tên...">
+                    
+                </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Họ tên đầy đủ</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày sinh</th>
+                        <th >Địa chỉ email </th>
+                    </tr>
+                </thead>
+                <tbody id="staff-table-body">
+                    <!-- Dữ liệu sẽ chèn vào  bằng JavaScript -->
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="pagination">
+                    <!-- Các trang được chèn  bằng JavaScript -->
+                </ul>
+            </nav>
+        </div>
     </div>
+    <div class="footer">
+    </div>
+    <script src="../js/pagination.js"></script>
 </body>
 </html>
