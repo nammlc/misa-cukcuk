@@ -39,6 +39,9 @@ body {
     color: #000;
 }
 
+.header .avatar-option{
+    padding-left: 10px;
+}
 .logo-container {
     display: flex;
     align-items: center;
@@ -59,7 +62,7 @@ body {
     background-color: #F0E6FF;
 }
 
-.container {
+.nam_container {
     display: flex;
     flex-grow: 1;
     margin: 0;
@@ -116,19 +119,54 @@ body {
 .main-content_header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .main-content_header button {
     border-radius: 10px;
-    background-color: green;
+    background-color: #50B83C;
     color: #fff;
     border: 0;
+}
+
+.search-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .search-container input{
     border-radius: 5px;
     padding: 10px;
     width: 250px;
+}
+
+.search-container_right{
+    display: flex;
+}
+.search-container_right img{
+    display: block;
+    width: 30px;
+    height: 30px;
+}
+
+.excel{
+    padding: 5px;
+    display: block;
+    background-color: rgb(229, 224, 224);
+    border: 0.3px solid rgb(181, 181, 181);
+    margin-right: 7px;
+}
+
+.reload{
+    padding: 5px;
+    display: block;
+    background-color: rgb(229, 224, 224);
+    border: 0.3px solid rgb(190, 188, 188);
+}
+
+.excel ::before .reload{
+    padding-right: 10px;
 }
 table {
     width: 100%;

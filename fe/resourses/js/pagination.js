@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
             gioiTinh: i % 2 === 0 ? 'Nam' : 'Nữ',
             diaChi: i % 2 === 0 ? 'Hà Nội' : 'TP. Hồ Chí Minh',
             ngaySinh: `01/01/${1985 + (i % 35)}`,
-            email: `nv${i}@example.com`
+            email: `nv${i}@gmail.com`
         });
     }
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         for (let i = start; i < end; i++) {
             if (filteredData[i]) {
-                const row = `<tr>
+                const row = `<tr data-index="${i}">
                     <td>${filteredData[i].stt}</td>
                     <td>${filteredData[i].maNhanVien}</td>
                     <td>${filteredData[i].hoTen}</td>
@@ -41,6 +41,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 staffTableBody.innerHTML += row;
             }
         }
+
+        
+        staffTableBody.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', function() {
+                const index = parseInt(row.getAttribute('data-index'));
+                const staff = filteredData[index];
+                showDetailPage(staff); 
+            });
+        });
     }
 
     function setupPagination() {
@@ -49,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <a class="page-link" href="#" data-page="1"> <img src="../../assets/icon/btn-firstpage.svg"> </a>
         </li>`;
         pagination.innerHTML += firstButton;
+
         const prevButton = `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
             <a class="page-link" href="#" data-page="${currentPage - 1}"> <img src="../../assets/icon/btn-prev-page.svg"> </a>
         </li>`;
@@ -70,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         pagination.innerHTML += nextButton;
 
         const lastButton = `<li class="page-item">
-            <a class="page-link" href="#" data-page="10"> <img src="../../assets/icon/btn-lastpage.svg"> </a>
+            <a class="page-link" href="#" data-page="${Math.ceil(filteredData.length / itemsPerPage)}"> <img src="../../assets/icon/btn-lastpage.svg"> </a>
         </li>`;
         pagination.innerHTML += lastButton;
         
@@ -104,6 +114,11 @@ document.addEventListener("DOMContentLoaded", function() {
             dropdownHTML += `<li><a class="dropdown-item" href="#" data-page="${i}">Trang ${i}</a></li>`;
         }
         return dropdownHTML;
+    }
+
+    function showDetailPage(staff) {
+        
+        window.location.href = `DetailStaff.html?id=${staff.maNhanVien}`;
     }
 
     searchInput.addEventListener('input', function(event) {

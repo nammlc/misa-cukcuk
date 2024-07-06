@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin chi tiết nhân viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/DetailStaff.css">
+    <style>
+        .form-container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .form-check-inline {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .form-check-input {
+            margin-left: 5px;
+        }
+        .form-check-label {
+            margin-left: 3px;
+        }
+        .bold-text {
+            font-weight: bold;
+            font-size: 3vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4 form-container">
+        <div class="mb-4 bold-text">Thông tin nhân viên</div>
+        <form id="employeeForm">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="maNhanVien" class="form-label">Mã nhân viên:</label>
+                    <input type="text" class="form-control" id="maNhanVien" name="maNhanVien" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="hoTen" class="form-label">Họ và tên:</label>
+                    <input type="text" class="form-control" id="hoTen" name="hoTen" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="ngaySinh" class="form-label">Ngày sinh:</label>
+                    <input type="date" class="form-control" id="ngaySinh" name="ngaySinh" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label d-block">Giới tính:</label>
+                    <div class="choose_gender" style="display: flex;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gioiTinh" id="gioiTinhNam" value="Nam" required>
+                            <label class="form-check-label" for="gioiTinhNam">Nam</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gioiTinh" id="gioiTinhNu" value="Nữ">
+                            <label class="form-check-label" for="gioiTinhNu">Nữ</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gioiTinh" id="gioiTinhKhac" value="Khác">
+                            <label class="form-check-label" for="gioiTinhKhac">Khác</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="viTri" class="form-label">Vị trí:</label>
+                    <input type="text" class="form-control" id="viTri" name="viTri" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="soCMND" class="form-label">Số CMND:</label>
+                    <input type="text" class="form-control" id="soCMND" name="soCMND" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="ngayCap" class="form-label">Ngày cấp CMND:</label>
+                    <input type="date" class="form-control" id="ngayCap" name="ngayCap" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="phongBan" class="form-label">Phòng ban:</label>
+                    <input type="text" class="form-control" id="phongBan" name="phongBan" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="noiCap" class="form-label">Nơi cấp CMND:</label>
+                    <input type="text" class="form-control" id="noiCap" name="noiCap" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="diaChi" class="form-label">Địa chỉ:</label>
+                    <input type="text" class="form-control" id="diaChi" name="diaChi" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="dienThoai" class="form-label">Điện thoại di động:</label>
+                    <input type="tel" class="form-control" id="dienThoai" name="dienThoai" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="dienthoaicodinh" class="form-label">Điện thoại cố định </label>
+                    <input type="tel" class="form-control" id="dienthoaicodinh" name="dienthoaicodinh" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="taiKhoanNganHang" class="form-label">Tài khoản ngân hàng:</label>
+                    <input type="text" class="form-control" id="taiKhoanNganHang" name="taiKhoanNganHang" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="tenNganHang" class="form-label">Tên ngân hàng:</label>
+                    <input type="text" class="form-control" id="tenNganHang" name="tenNganHang" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="chiNhanhNganHang" class="form-label">Chi nhánh:</label>
+                    <input type="text" class="form-control" id="chiNhanhNganHang" name="chiNhanhNganHang" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col text-end">
+                    <button type="reset" class="btn btn-secondary">Hủy</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: rgb(13, 179, 13);">Lưu</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
