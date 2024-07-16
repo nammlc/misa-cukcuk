@@ -78,6 +78,7 @@ body {
     padding-top: 20px;
     height: 100%;
     border-right: 1px solid #ddd;
+    position: relative;
 }
 
 .sidebar ul {
@@ -112,9 +113,29 @@ body {
     color: #000;
 }
 
+.end-sidebar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    font-size: 2.2vh;
+    color: #fff;
+    border-top: 0.5px solid #b0a9a9;
+    display: flex;
+    
+    align-items: center;
+    padding: 10px;
+    font-weight: 100;
+    cursor: pointer; 
+}
+
+
+.end-sidebar img{
+    width: 25px;
+}
 .main-content {
     padding: 20px;
     width: 100%; 
+    
 }
 
 .main-content_header {
@@ -192,15 +213,70 @@ th {
     background-color: #f4f4f4;
 }
 
+
+.hide-icon_form{
+    font-size: 1.8vh;
+    display: none;
+} 
+
+.hide-icon_form i{
+    font-size: 2.6vh;
+    padding-left: 5px;
+}
+
 tbody tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
 }
 
+tbody tr:hover .hide-icon_form{
+    display: block;
+}
+.form-container {
+    max-width: 900px;
+    margin: auto;
+}
+.form-check-inline {
+    display: inline-block;
+    margin-right: 10px;
+}
+.form-check-input {
+    margin-left: 5px;
+}
+.form-check-label {
+    margin-left: 3px;
+}
+.bold-text {
+    font-weight: bold;
+    font-size: 3vh;
+}
+.pagination-container {
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 20px;
+}
 .pagination {
     display: flex;
     list-style: none;
     padding: 0;
+}
+.pagination .page-item {
+    margin-right: 5px;
+}
+.pagination .page-link {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #000;
+}
+.pagination .page-item.active .page-link {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
 }
 
 .pagination .page-item {

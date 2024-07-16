@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>${filteredData[i].gioiTinh}</td>
                     <td>${filteredData[i].diaChi}</td>
                     <td>${filteredData[i].ngaySinh}</td>
-                    <td>${filteredData[i].email}</td>
+                    <td style="display :flex ; justify-content: space-between; align-items: center;"><div> ${filteredData[i].email} </div> <div class="hide-icon_form"> <i class="fa-solid fa-pen" style="color: #50B83C"></i> <i class="fa-solid fa-user-plus" style="color: #50B83C"></i> <i class="fa-solid fa-xmark" style="color: red"></i> </div></td>
                 </tr>`;
                 staffTableBody.innerHTML += row;
             }
