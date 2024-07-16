@@ -264,42 +264,27 @@ tbody tr:hover .hide-icon_form{
     margin-right: 5px;
 }
 .pagination .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; 
+    height: 36px; 
     color: #000;
     background-color: #fff;
-    border: 1px solid #000;
+    border: 0px solid #000;
+    text-decoration: none; 
 }
 .pagination .page-link:hover {
-    color: #fff;
-    background-color: #000;
-    border: 1px solid #000;
+    color: #110606;
+    background-color: #d8d5d5;
+    border: 0px solid #a6a1a1;
 }
 .pagination .page-item.active .page-link {
-    background-color: #000;
+    background-color: #a6a1a1;
     color: #fff;
-    border: 1px solid #000;
+    border: 0px solid #a6a1a1;
 }
 
-.pagination .page-item {
-    margin-right: 5px;
-}
-
-.pagination .page-link {
-    color: #000;
-    background-color: #fff;
-    border: 1px solid #000;
-}
-
-.pagination .page-link:hover {
-    color: #fff;
-    background-color: #000;
-    border: 1px solid #000;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #000;
-    color: #fff;
-    border: 1px solid #000;
-}
 
 .modal-content {
     max-width: 900px;

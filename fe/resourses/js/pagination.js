@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </li>`;
         pagination.innerHTML += prevButton;
 
-        const dropdownMenu = `<li class="page-item dropdown">
+        const dropdownMenu = `<li class="page-item dropdown" style=" padding : 0">
             <a class="page-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                  ${currentPage}
             </a>
