@@ -6,6 +6,7 @@ body {
     flex-direction: column;
     height: 100vh;
     box-sizing: border-box;
+    font-size: 1.8vh;
 }
 
 .header {
@@ -222,4 +223,10 @@ tbody tr:hover {
     background-color: #000;
     color: #fff;
     border: 1px solid #000;
+}
+
+.modal-content {
+    max-width: 900px;
+    width: 900px;
+    margin: auto;
 }
