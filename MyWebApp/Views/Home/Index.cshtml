@@ -1,8 +1,225 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="~/css/assets/cukcuk-logo.png" alt="Logo" class="logo">
+            <div class="list-branch">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle branch-btn" href="#" role="button" id="dropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Chọn chi nhánh
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Chi nhánh TP Hồ Chí Minh</a></li>
+                        <li><a class="dropdown-item" href="#">Chi nhánh Hà Nội</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="avatar-container">
+            <img src="~/css/assets/icon/avatar-default.png" alt="Avatar" class="avatar">
+            <div class="avatar-name">Lê Công Nam</div>
+            <div class="avatar-option"> <img src="~/css/assets/icon/option.png" alt=""></div>
+        </div>
+    </div>
+    <div class="nam_container">
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <img src="~/css/assets/icon/dashboard.png" alt="">
+                    <a href="#">Trang chủ</a>
+                </li>
+                <li>
+                    <img src="~/css/assets/icon/report.png" alt="">
+                    <a href="#">Báo cáo</a>
+                </li>
+                <li>
+                    <img src="~/css/assets/icon/dic-employee.png" alt="">
+                    <a href="#">Nhân viên</a>
+                </li>
+                <li>
+                    <img src="~/css/assets/icon/setting.png" alt="">
+                    <a href="#">Cài đặt</a>
+                </li>
+            </ul>
+            <div class="end-sidebar" id="toggleSidebar">
+                <i class="fa-solid fa-chevron-left" style="padding-right: 10px;"></i>  Thu gọn
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="main-content_header">
+                <div style="font-size:  4.5vh;">Quản lý nhân viên</div>
+                <button>
+                    <a href="javascript:void(0)" style="text-decoration: none; color :#fff"><img
+                            src="~/css/assets/icon/add.png" alt="">
+                        Thêm mới</a>
+                </button>
+            </div>
+            <div class="search-container">
+                <div class="search-container_left">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo mã , họ tên... ">
+                </div>
+                <div class="search-container_right">
+                    <div class="excel">
+                        <img src="~/css/assets/icon/export-excel-50.png" alt="">
+                    </div>
+                    <div class="reload">
+                        <img src="~/css/assets/icon/refresh.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Họ tên đầy đủ</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày sinh</th>
+                        <th>Địa chỉ email</th>
+                    </tr>
+                </thead>
+                <tbody id="staff-table-body">
+                    <!-- Data here -->
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" class="pagination-container">
+                <ul class="pagination" id="pagination">
+                    <!-- Pagination items here -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="footer"></div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="modal fade" id="addNewStaffModal" tabindex="-1" aria-labelledby="addNewStaffModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewStaffModalLabel">Thêm mới nhân viên</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="employeeForm">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="maNhanVien" class="form-label">Mã nhân viên:</label>
+                                <input type="text" class="form-control" id="maNhanVien" name="maNhanVien" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="hoTen" class="form-label">Họ và tên:</label>
+                                <input type="text" class="form-control" id="hoTen" name="hoTen" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="ngaySinh" class="form-label">Ngày sinh:</label>
+                                <input type="date" class="form-control" id="ngaySinh" name="ngaySinh" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label d-block">Giới tính:</label>
+                                <div class="choose_gender" style="display: flex;">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gioiTinh" id="gioiTinhNam"
+                                            value="Nam" required>
+                                        <label class="form-check-label" for="gioiTinhNam">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gioiTinh" id="gioiTinhNu"
+                                            value="Nữ">
+                                        <label class="form-check-label" for="gioiTinhNu">Nữ</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gioiTinh" id="gioiTinhKhac"
+                                            value="Khác">
+                                        <label class="form-check-label" for="gioiTinhKhac">Khác</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="viTri" class="form-label">Vị trí:</label>
+                                <input type="text" class="form-control" id="viTri" name="viTri" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="soCMND" class="form-label">Số CMND:</label>
+                                <input type="text" class="form-control" id="soCMND" name="soCMND" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ngayCap" class="form-label">Ngày cấp CMND:</label>
+                                <input type="date" class="form-control" id="ngayCap" name="ngayCap" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="phongBan" class="form-label">Phòng ban:</label>
+                                <input type="text" class="form-control" id="phongBan" name="phongBan" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="noiCap" class="form-label">Nơi cấp CMND:</label>
+                                <input type="text" class="form-control" id="noiCap" name="noiCap" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="diaChi" class="form-label">Địa chỉ:</label>
+                                <input type="text" class="form-control" id="diaChi" name="diaChi" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="dienThoai" class="form-label">Điện thoại di động:</label>
+                                <input type="tel" class="form-control" id="dienThoai" name="dienThoai" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="dienthoaicodinh" class="form-label">Điện thoại cố định </label>
+                                <input type="tel" class="form-control" id="dienthoaicodinh" name="dienthoaicodinh"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="taiKhoanNganHang" class="form-label">Tài khoản ngân hàng:</label>
+                                <input type="text" class="form-control" id="taiKhoanNganHang" name="taiKhoanNganHang"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tenNganHang" class="form-label">Tên ngân hàng:</label>
+                                <input type="text" class="form-control" id="tenNganHang" name="tenNganHang" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="chiNhanhNganHang" class="form-label">Chi nhánh:</label>
+                                <input type="text" class="form-control" id="chiNhanhNganHang" name="chiNhanhNganHang"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col text-end">
+                                <button type="reset" class="btn btn-secondary">Hủy</button>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: rgb(13, 179, 13);">Lưu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".main-content_header button").addEventListener("click", function () {
+                var myModal = new bootstrap.Modal(document.getElementById('addNewStaffModal'), {
+                    keyboard: false
+                });
+                myModal.show();
+            });
+        });
+    </script>
+    <script src="~/js/pagination.js"></script>
+    <script src="~/js/shrink.js"></script>
+</body>
