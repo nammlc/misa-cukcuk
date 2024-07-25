@@ -1,22 +1,22 @@
 namespace MyWebApp.Models
 {
-    public class NhanVien
-    {
-        public int Id { get; set; }
-        public string TenNhanVien { get; set; }
-        public string MaNhanVien { get; set; }
-        public DateTime NgaySinh { get; set; }
-        public string GioiTinh { get; set; }
-        public string ViTri { get; set; }
-        public string SoCMND { get; set; }
-        public DateTime NgayCapCMND { get; set; }
-        public string NoiCapCMND { get; set; }
-        public string DiaChi { get; set; }
-        public string SoDienThoai { get; set; }
-        public string SoDienThoaiCoDinh { get; set; }
-        public string Email { get; set; }
-        public string SoTaiKhoanNganHang { get; set; }
-        public string TenNganHang { get; set; }
-        public string ChiNhanhNganHang { get; set; }
-    }
+   public class NhanVien
+{
+    public int id { get; set; }
+    public string ten_nhan_vien { get; set; }
+    public string ma_nhan_vien { get; set; }
+    public DateTime ngay_sinh { get; set; }
+    public string gioi_tinh { get; set; }
+    public string vi_tri { get; set; }
+    public string so_cmnd { get; set; }
+    public DateTime ngay_cap_cmnd { get; set; }
+    public string noi_cap_cmnd { get; set; }
+    public string dia_chi { get; set; }
+    public string so_dien_thoai { get; set; }
+    public string? so_dien_thoai_co_dinh { get; set; } // Nullable vì có thể không có
+    public string email { get; set; }
+    public string so_tai_khoan_ngan_hang { get; set; }
+    public string ten_ngan_hang { get; set; }
+    public string chi_nhanh_ngan_hang { get; set; }
+}
 }

@@ -1,0 +1,56 @@
+<!-- File: Views/NhanVien/Index.cshtml -->
+@model IEnumerable<MyWebApp.Models.NhanVien>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danh sách nhân viên</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Danh sách nhân viên</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Tên Nhân Viên</th>
+                    <th>Mã Nhân Viên</th>
+                    <th>Giới Tính</th>
+                    <th>Vị Trí</th>
+                    <th>Số CMND</th>
+                    <th>Nơi Cấp CMND</th>
+                    <th>Địa Chỉ</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Số Điện Thoại Cố Định</th>
+                    <th>Email</th>
+                    <th>Số Tài Khoản Ngân Hàng</th>
+                    <th>Tên Ngân Hàng</th>
+                    <th>Chi Nhánh Ngân Hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var nhanVien in Model)
+                {
+                    <tr>
+                        <td>@nhanVien.id</td>
+                        <td>@nhanVien.ten_nhan_vien</td>
+                        <td>@nhanVien.ma_nhan_vien</td>
+                        <td>@nhanVien.gioi_tinh</td>
+                        <td>@nhanVien.vi_tri</td>
+                        <td>@nhanVien.so_cmnd</td>
+                        <td>@nhanVien.noi_cap_cmnd</td>
+                        <td>@nhanVien.dia_chi</td>
+                        <td>@nhanVien.so_dien_thoai</td>
+                        <td>@nhanVien.so_dien_thoai_co_dinh</td>
+                        <td>@nhanVien.email</td>
+                        <td>@nhanVien.so_tai_khoan_ngan_hang</td>
+                        <td>@nhanVien.ten_ngan_hang</td>
+                        <td>@nhanVien.chi_nhanh_ngan_hang</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

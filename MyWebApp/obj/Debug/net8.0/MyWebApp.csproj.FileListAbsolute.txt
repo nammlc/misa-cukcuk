@@ -46,3 +46,8 @@ C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\obj\Debug\net8.0\MyWebApp.csproj.AssemblyReference.cache
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\obj\Debug\net8.0\MyWebApp.csproj.Up2Date
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
