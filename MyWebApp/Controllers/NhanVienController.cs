@@ -1,7 +1,8 @@
-// File: Controllers/NhanVienController.cs
 using Microsoft.AspNetCore.Mvc;
 using MyWebApp.Data;
+using MyWebApp.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyWebApp.Controllers
 {
@@ -32,5 +33,29 @@ namespace MyWebApp.Controllers
                 return Content($"Lỗi kết nối cơ sở dữ liệu: {ex.Message}");
             }
         }
+
+        // Hiển thị form thêm mới nhân viên
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> Create(NhanVien nhanVien)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(nhanVien);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Thêm nhân viên thành công!";
+                return RedirectToAction("Index", "Home");
+            }
+            TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm nhân viên.";
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

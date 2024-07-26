@@ -18,16 +18,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/lcong/OneDrive/Tài liệu/misa-tt/MyWebApp/Views/Home/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lcong/OneDrive/Tài liệu/misa-tt/MyWebApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lcong/OneDrive/Tài liệu/misa-tt/MyWebApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/lcong/OneDrive/Tài liệu/misa-tt/MyWebApp/Views/NhanVien/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhblZpZW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/lcong/OneDrive/Tài liệu/misa-tt/MyWebApp/Views/Shared/Error.cshtml]

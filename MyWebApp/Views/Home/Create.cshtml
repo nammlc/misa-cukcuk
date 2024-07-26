@@ -1,0 +1,103 @@
+@model MyWebApp.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Create New Employee";
+}
+
+<h1>Create New Employee</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="ma_nhan_vien" class="control-label"></label>
+        <input asp-for="ma_nhan_vien" class="form-control" />
+        <span asp-validation-for="ma_nhan_vien" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ten_nhan_vien" class="control-label"></label>
+        <input asp-for="ten_nhan_vien" class="form-control" />
+        <span asp-validation-for="ten_nhan_vien" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ngay_sinh" class="control-label"></label>
+        <input asp-for="ngay_sinh" class="form-control" type="date" />
+        <span asp-validation-for="ngay_sinh" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="gioi_tinh" class="control-label"></label>
+        <input asp-for="gioi_tinh" class="form-control" />
+        <span asp-validation-for="gioi_tinh" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="vi_tri" class="control-label"></label>
+        <input asp-for="vi_tri" class="form-control" />
+        <span asp-validation-for="vi_tri" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="so_cmnd" class="control-label"></label>
+        <input asp-for="so_cmnd" class="form-control" />
+        <span asp-validation-for="so_cmnd" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ngay_cap_cmnd" class="control-label"></label>
+        <input asp-for="ngay_cap_cmnd" class="form-control" type="date" />
+        <span asp-validation-for="ngay_cap_cmnd" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="noi_cap_cmnd" class="control-label"></label>
+        <input asp-for="noi_cap_cmnd" class="form-control" />
+        <span asp-validation-for="noi_cap_cmnd" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="dia_chi" class="control-label"></label>
+        <input asp-for="dia_chi" class="form-control" />
+        <span asp-validation-for="dia_chi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="so_dien_thoai" class="control-label"></label>
+        <input asp-for="so_dien_thoai" class="form-control" />
+        <span asp-validation-for="so_dien_thoai" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="so_dien_thoai_co_dinh" class="control-label"></label>
+        <input asp-for="so_dien_thoai_co_dinh" class="form-control" />
+        <span asp-validation-for="so_dien_thoai_co_dinh" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="email" class="control-label"></label>
+        <input asp-for="email" class="form-control" />
+        <span asp-validation-for="email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="so_tai_khoan_ngan_hang" class="control-label"></label>
+        <input asp-for="so_tai_khoan_ngan_hang" class="form-control" />
+        <span asp-validation-for="so_tai_khoan_ngan_hang" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ten_ngan_hang" class="control-label"></label>
+        <input asp-for="ten_ngan_hang" class="form-control" />
+        <span asp-validation-for="ten_ngan_hang" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="chi_nhanh_ngan_hang" class="control-label"></label>
+        <input asp-for="chi_nhanh_ngan_hang" class="form-control" />
+        <span asp-validation-for="chi_nhanh_ngan_hang" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
