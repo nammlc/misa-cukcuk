@@ -111,7 +111,17 @@
                                 <td>@nhanVien.gioi_tinh</td>
                                 <td>@nhanVien.dia_chi</td>
                                 <td>@nhanVien.ngay_sinh.ToString("dd/MM/yyyy")</td>
-                                <td>@nhanVien.email</td>
+                                <td style="display: flex; justify-content: space-between;">
+                                    <div class="">@nhanVien.email</div>
+                                    <div class="hide-icon_form">
+                                        <i class="fa-solid fa-user-pen" style="color: rgb(26, 195, 37);"></i>
+                                        <button class="delete-btn" data-id="@nhanVien.id"
+                                            style="border: none; background-color: #f1f1f1;">
+                                            <i class="fa-solid fa-x" style="color: red;"></i>
+                                        </button>
+                                    </div>
+                                </td>
+
                             </tr>
                             stt++;
                         }
@@ -130,7 +140,7 @@
                     <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
                         <a class="page-link" href="@Url.Action("Index", new { page = 1 })">«</a>
                     </li>
-                    
+
                     <!-- Lùi trang -->
                     <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
                         <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">‹</a>
@@ -292,6 +302,42 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-btn").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    
+                    var employeeId = this.getAttribute("data-id");
+                    console.log(employeeId);
+                    if (confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
+                        fetch(`/NhanVien/Delete/${employeeId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert("Xóa thành công");
+                                    window.location.reload();
+                                } else {
+                                    return response.text().then(text => {
+                                        alert("Xóa không thành công: " + text);
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Có lỗi xảy ra:', error);
+                                alert("Có lỗi xảy ra khi xóa.");
+                            });
+                    }
+                });
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>

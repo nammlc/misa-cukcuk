@@ -1,56 +1,193 @@
-﻿<!-- File: Views/NhanVien/Index.cshtml -->
-@model IEnumerable<MyWebApp.Models.NhanVien>
+﻿@model IEnumerable<MyWebApp.Models.NhanVien>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Danh sách nhân viên</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nhân viên</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Danh sách nhân viên</h1>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Tên Nhân Viên</th>
-                    <th>Mã Nhân Viên</th>
-                    <th>Giới Tính</th>
-                    <th>Vị Trí</th>
-                    <th>Số CMND</th>
-                    <th>Nơi Cấp CMND</th>
-                    <th>Địa Chỉ</th>
-                    <th>Số Điện Thoại</th>
-                    <th>Số Điện Thoại Cố Định</th>
-                    <th>Email</th>
-                    <th>Số Tài Khoản Ngân Hàng</th>
-                    <th>Tên Ngân Hàng</th>
-                    <th>Chi Nhánh Ngân Hàng</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var nhanVien in Model)
-                {
-                    <tr>
-                        <td>@nhanVien.id</td>
-                        <td>@nhanVien.ten_nhan_vien</td>
-                        <td>@nhanVien.ma_nhan_vien</td>
-                        <td>@nhanVien.gioi_tinh</td>
-                        <td>@nhanVien.vi_tri</td>
-                        <td>@nhanVien.so_cmnd</td>
-                        <td>@nhanVien.noi_cap_cmnd</td>
-                        <td>@nhanVien.dia_chi</td>
-                        <td>@nhanVien.so_dien_thoai</td>
-                        <td>@nhanVien.so_dien_thoai_co_dinh</td>
-                        <td>@nhanVien.email</td>
-                        <td>@nhanVien.so_tai_khoan_ngan_hang</td>
-                        <td>@nhanVien.ten_ngan_hang</td>
-                        <td>@nhanVien.chi_nhanh_ngan_hang</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="header">
+        <div class="logo-container">
+            <img src="~/css/assets/cukcuk-logo.png" alt="Logo" class="logo">
+            <div class="list-branch">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle branch-btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Chọn chi nhánh
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Chi nhánh TP Hồ Chí Minh</a>
+                        <a class="dropdown-item" href="#">Chi nhánh Hà Nội</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="avatar-container">
+            <img src="~/css/assets/icon/avatar-default.png" alt="Avatar" class="avatar">
+            <div class="avatar-name">Lê Công Nam</div>
+            <div class="avatar-option">
+                <img src="~/css/assets/icon/option.png" alt="">
+            </div>
+        </div>
     </div>
+    <div class="nam_container">
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <img src="~/css/assets/icon/dashboard.png" alt="">
+                    <a href="#">Trang chủ</a>
+                </li>
+                <li>
+                    <img src="~/css/assets/icon/report.png" alt="">
+                    <a href="#">Báo cáo</a>
+                </li>
+                <li>
+                    <img src="~/css/assets/icon/dic-employee.png" alt="">
+                    <a href="#">Nhân viên</a>
+                </li>
+                <li>
+                    <img src="~/css/assets/icon/setting.png" alt="">
+                    <a href="#">Cài đặt</a>
+                </li>
+            </ul>
+            <div class="end-sidebar" id="toggleSidebar">
+                <i class="fa fa-chevron-left" style="padding-right: 10px;"></i> Thu gọn
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="main-content_header">
+                <div style="font-size: 4.5vh;">Quản lý nhân viên</div>
+                <button>
+                    <a href="@Url.Action("Create", "NhanVien")" style="text-decoration: none; color: #fff">
+                        <img src="~/css/assets/icon/add.png" alt="">
+                        Thêm mới
+                    </a>
+                </button>
+            </div>
+            <div class="search-container">
+                <div class="search-container_left">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo mã, họ tên...">
+                </div>
+                <div class="search-container_right">
+                    <div class="excel">
+                        <img src="~/css/assets/icon/export-excel-50.png" alt="">
+                    </div>
+                    <div class="reload">
+                        <img src="~/css/assets/icon/refresh.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Họ tên đầy đủ</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày sinh</th>
+                        <th>Địa chỉ email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int stt = 1;
+                        foreach (var nhanVien in Model)
+                        {
+                            <tr>
+                                <td>@stt</td>
+                                <td>@nhanVien.ma_nhan_vien</td>
+                                <td>@nhanVien.ten_nhan_vien</td>
+                                <td>@nhanVien.gioi_tinh</td>
+                                <td>@nhanVien.dia_chi</td>
+                                <td>@nhanVien.ngay_sinh.ToString("dd/MM/yyyy")</td>
+                                <td>@nhanVien.email</td>
+                            </tr>
+                            stt++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">Không có dữ liệu</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" class="pagination-container">
+                <ul class="pagination" id="pagination">
+                    <!-- Các mục phân trang -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="footer"></div>
+
+    <div class="modal fade" id="addNewStaffModal" tabindex="-1" aria-labelledby="addNewStaffModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewStaffModalLabel">Thêm mới nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="employeeForm" asp-controller="NhanVien" asp-action="Create" method="post">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="ma_nhan_vien" class="form-label">Mã nhân viên:</label>
+                                <input type="text" class="form-control" id="ma_nhan_vien" name="ma_nhan_vien" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="ten_nhan_vien" class="form-label">Họ và tên:</label>
+                                <input type="text" class="form-control" id="ten_nhan_vien" name="ten_nhan_vien" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="ngay_sinh" class="form-label">Ngày sinh:</label>
+                                <input type="date" class="form-control" id="ngay_sinh" name="ngay_sinh" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label d-block">Giới tính:</label>
+                                <div class="choose_gender" style="display: flex;">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gioi_tinh" id="gioiTinhNam" value="Nam" required>
+                                        <label class="form-check-label" for="gioiTinhNam">Nam</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gioi_tinh" id="gioiTinhNu" value="Nữ" required>
+                                        <label class="form-check-label" for="gioiTinhNu">Nữ</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dia_chi" class="form-label">Địa chỉ:</label>
+                                <input type="text" class="form-control" id="dia_chi" name="dia_chi">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/shrink.js"></script>
 </body>
 </html>
