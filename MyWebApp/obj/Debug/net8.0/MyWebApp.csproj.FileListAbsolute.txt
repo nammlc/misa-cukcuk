@@ -51,3 +51,4 @@ C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Microsof
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\MySqlConnector.dll
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\X.PagedList.dll

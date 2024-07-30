@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyWebApp.Data;
 using MyWebApp.Models;
-using System.Linq;
+using X.PagedList;
 using System.Threading.Tasks;
+using X.PagedList.Extensions;
 
 namespace MyWebApp.Controllers
 {
@@ -15,34 +17,23 @@ namespace MyWebApp.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        // Hiển thị danh sách nhân viên với phân trang
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var nhanViens = _context.NhanVien.ToList();
-            return View(nhanViens);
+            int pageSize = 10;
+            var nhanViens = await _context.NhanVien.ToListAsync();
+            var pagedNhanViens = nhanViens.ToPagedList(page, pageSize);
+
+            return View(pagedNhanViens);
         }
 
-        public IActionResult CheckConnection()
-        {
-            try
-            {
-                _context.Database.CanConnect();
-                return Content("Kết nối cơ sở dữ liệu thành công.");
-            }
-            catch (Exception ex)
-            {
-                return Content($"Lỗi kết nối cơ sở dữ liệu: {ex.Message}");
-            }
-        }
-
-        // Hiển thị form thêm mới nhân viên
-        [HttpGet]
+        // Hiển thị form tạo mới nhân viên
         public IActionResult Create()
         {
             return View();
         }
 
-
-        [HttpPost]
+        // Xử lý việc tạo mới nhân viên
         [HttpPost]
         public async Task<IActionResult> Create(NhanVien nhanVien)
         {
@@ -51,11 +42,10 @@ namespace MyWebApp.Controllers
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Thêm nhân viên thành công!";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "NhanVien");
             }
             TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm nhân viên.";
-            return RedirectToAction("Index", "Home");
+            return View(nhanVien);
         }
-
     }
 }
