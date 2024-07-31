@@ -68,6 +68,60 @@ namespace MyWebApp.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var nhanVien = await _context.NhanVien.FindAsync(id);
+            if (nhanVien == null)
+            {
+                return NotFound();
+            }
+            return PartialView("_EditEmployeeModal", nhanVien);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("id,ten_nhan_vien,ma_nhan_vien,ngay_sinh,gioi_tinh,vi_tri,so_cmnd,ngay_cap_cmnd,noi_cap_cmnd,dia_chi,so_dien_thoai,so_dien_thoai_co_dinh,email,so_tai_khoan_ngan_hang,ten_ngan_hang,chi_nhanh_ngan_hang")] NhanVien nhanVien)
+        {
+            if (id != nhanVien.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(nhanVien);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NhanVienExists(nhanVien.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return PartialView("_EditEmployeeModal", nhanVien);
+        }
+
+        private bool NhanVienExists(int id)
+        {
+            return _context.NhanVien.Any(e => e.id == id);
+        }
+
+
 
     }
 }

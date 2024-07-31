@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -114,11 +115,13 @@
                                 <td style="display: flex; justify-content: space-between;">
                                     <div class="">@nhanVien.email</div>
                                     <div class="hide-icon_form">
-                                        <i class="fa-solid fa-user-pen" style="color: rgb(26, 195, 37);"></i>
-                                        <button class="delete-btn" data-id="@nhanVien.id"
-                                            style="border: none; background-color: #f1f1f1;">
+                                        <div class="edit-btn" data-id="@nhanVien.id">
+                                            <i class="fa-solid fa-user-pen" style="color: rgb(26, 195, 37);"></i>
+                                        </div>
+
+                                        <div class="delete-btn" data-id="@nhanVien.id" style="border: none; padding-left: 5px;">
                                             <i class="fa-solid fa-x" style="color: red;"></i>
-                                        </button>
+                                        </div>
                                     </div>
                                 </td>
 
@@ -304,9 +307,9 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".delete-btn").forEach(function (button) {
-                button.addEventListener("click", function () {
-                    
+            document.querySelectorAll(".delete-btn").forEach(function (div) {
+                div.addEventListener("click", function () {
+
                     var employeeId = this.getAttribute("data-id");
                     console.log(employeeId);
                     if (confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
@@ -332,6 +335,13 @@
                                 alert("Có lỗi xảy ra khi xóa.");
                             });
                     }
+                });
+            });
+            $(document).ready(function () {
+                $(".edit-btn").click(function () {
+                    var id = $(this).data('id');
+                    var editUrl = '@Url.Action("Edit", "NhanVien", new { id = "__id__" })'.replace('__id__', id);
+                    window.location.href = editUrl;
                 });
             });
         });

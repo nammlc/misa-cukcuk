@@ -232,7 +232,7 @@ tbody tr:hover {
 }
 
 tbody tr:hover .hide-icon_form{
-    display: block;
+    display: flex;
 }
 .form-container {
     max-width: 900px;
