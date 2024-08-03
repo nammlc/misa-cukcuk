@@ -8,21 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý nhân viên</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    @* <link rel="stylesheet" type="text/css" href="~/css/site.css" /> *@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 
-<body>
+<body style="font-size: 1.9vh;">
     <div class="header">
         <div class="logo-container">
-            <img src="~/css/assets/cukcuk-logo.png" alt="Logo" class="logo">
+            <a href="http://localhost:5135"><img src="~/css/assets/cukcuk-logo.png" alt="Logo" class="logo"></a>
+            
             <div class="list-branch">
                 <div class="dropdown">
                     <a class="btn dropdown-toggle branch-btn" href="#" role="button" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none; color: black;">
                         Chọn chi nhánh
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -45,7 +46,7 @@
             <ul>
                 <li>
                     <img src="~/css/assets/icon/dashboard.png" alt="">
-                    <a href="#">Trang chủ</a>
+                    <a href="http://localhost:5135/">Trang chủ</a>
                 </li>
                 <li>
                     <img src="~/css/assets/icon/report.png" alt="">
@@ -76,14 +77,18 @@
             </div>
             <div class="search-container">
                 <div class="search-container_left">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo mã, họ tên...">
+                    <form method="get" action="@Url.Action("Index")">
+                        <input type="text" id="searchInput" name="searchQuery" value="@ViewBag.SearchQuery" placeholder="Tìm kiếm theo mã, họ tên..." class="form-control">
+                        
+                        
+                    </form>
                 </div>
                 <div class="search-container_right">
                     <div class="excel">
                         <img src="~/css/assets/icon/export-excel-50.png" alt="">
                     </div>
                     <div class="reload">
-                        <img src="~/css/assets/icon/refresh.png" alt="">
+                        <img src="~/css/assets/icon/refresh.png" alt="" id="reloadBtn">
                     </div>
                 </div>
             </div>
@@ -124,7 +129,6 @@
                                         </div>
                                     </div>
                                 </td>
-
                             </tr>
                             stt++;
                         }
@@ -141,30 +145,30 @@
                 <ul class="pagination">
                     <!-- Trang đầu -->
                     <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                        <a class="page-link" href="@Url.Action("Index", new { page = 1 })">«</a>
+                        <a class="page-link" href="@Url.Action("Index", new { page = 1, searchQuery = ViewBag.SearchQuery })">«</a>
                     </li>
 
                     <!-- Lùi trang -->
                     <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">‹</a>
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, searchQuery = ViewBag.SearchQuery })">‹</a>
                     </li>
 
                     <!-- Trang hiện tại -->
                     @for (int i = 1; i <= Model.PageCount; i++)
                     {
                         <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                            <a class="page-link" href="@Url.Action("Index", new { page = i, searchQuery = ViewBag.SearchQuery })">@i</a>
                         </li>
                     }
 
                     <!-- Tiến trang -->
                     <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })">›</a>
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, searchQuery = ViewBag.SearchQuery })">›</a>
                     </li>
 
                     <!-- Trang cuối -->
                     <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageCount })">»</a>
+                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageCount, searchQuery = ViewBag.SearchQuery })">»</a>
                     </li>
                 </ul>
                 <div class="pagination-info">
@@ -188,20 +192,20 @@
                 <div class="modal-body">
                     <form id="employeeForm" asp-controller="NhanVien" asp-action="Create" method="post">
                         <div class="row mb-3">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="ma_nhan_vien" class="form-label">Mã nhân viên:</label>
-                                <input type="text" class="form-control" id="ma_nhan_vien" name="ma_nhan_vien" required>
+                                <input type="text" class="form-control" id="ma_nhan_vien" name="ma_nhan_vien" required value="Create Automatically" readonly />
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="ten_nhan_vien" class="form-label">Họ và tên:</label>
                                 <input type="text" class="form-control" id="ten_nhan_vien" name="ten_nhan_vien"
                                     required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="ngay_sinh" class="form-label">Ngày sinh:</label>
                                 <input type="date" class="form-control" id="ngay_sinh" name="ngay_sinh" required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label class="form-label d-block">Giới tính:</label>
                                 <div class="choose_gender" style="display: flex;">
                                     <div class="form-check form-check-inline">
@@ -296,58 +300,57 @@
 
     <script src="~/js/shrink.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelector(".main-content_header button").addEventListener("click", function () {
-                var myModal = new bootstrap.Modal(document.getElementById('addNewStaffModal'), {
-                    keyboard: false
-                });
-                myModal.show();
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".main-content_header button").addEventListener("click", function () {
+            var myModal = new bootstrap.Modal(document.getElementById('addNewStaffModal'), {
+                keyboard: false
             });
+            myModal.show();
         });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".delete-btn").forEach(function (div) {
-                div.addEventListener("click", function () {
 
-                    var employeeId = this.getAttribute("data-id");
-                    console.log(employeeId);
-                    if (confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
-                        fetch(`/NhanVien/Delete/${employeeId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                            }
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    alert("Xóa thành công");
-                                    window.location.reload();
-                                } else {
-                                    return response.text().then(text => {
-                                        alert("Xóa không thành công: " + text);
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Có lỗi xảy ra:', error);
-                                alert("Có lỗi xảy ra khi xóa.");
+        document.querySelectorAll(".delete-btn").forEach(function (div) {
+            div.addEventListener("click", function () {
+                var employeeId = this.getAttribute("data-id");
+                console.log(employeeId);
+                if (confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
+                    fetch(`/NhanVien/Delete/${employeeId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Xóa thành công");
+                            window.location.reload();
+                        } else {
+                            return response.text().then(text => {
+                                alert("Xóa không thành công: " + text);
                             });
-                    }
-                });
-            });
-            $(document).ready(function () {
-                $(".edit-btn").click(function () {
-                    var id = $(this).data('id');
-                    var editUrl = '@Url.Action("Edit", "NhanVien", new { id = "__id__" })'.replace('__id__', id);
-                    window.location.href = editUrl;
-                });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Có lỗi xảy ra:', error);
+                        alert("Có lỗi xảy ra khi xóa.");
+                    });
+                }
             });
         });
 
+        document.querySelectorAll(".edit-btn").forEach(function (div) {
+            div.addEventListener("click", function () {
+                var id = this.getAttribute('data-id');
+                console.log(id);
+                var editUrl = '@Url.Action("Edit", "NhanVien", new { id = "__id__" })'.replace('__id__', id);
+
+                window.location.href = editUrl;
+            });
+        });
+    });
+    document.getElementById("reloadBtn").addEventListener("click", function () {
+        window.location.reload();
+    });
     </script>
-
 </body>
-
 </html>

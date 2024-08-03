@@ -18,20 +18,27 @@ namespace MyWebApp.Controllers
         }
 
         // Hiển thị danh sách nhân viên với phân trang
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string searchQuery, int page = 1)
         {
             int pageSize = 10;
-            var nhanViens = await _context.NhanVien.ToListAsync();
+            var nhanViens = _context.NhanVien.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                nhanViens = nhanViens.Where(nv => nv.ma_nhan_vien.Contains(searchQuery) || nv.ten_nhan_vien.Contains(searchQuery));
+            }
+
             var pagedNhanViens = nhanViens.ToPagedList(page, pageSize);
+            ViewBag.SearchQuery = searchQuery;
 
             return View(pagedNhanViens);
         }
-
         // Hiển thị form tạo mới nhân viên
         public IActionResult Create()
         {
             return View();
         }
+
 
         // Xử lý việc tạo mới nhân viên
         [HttpPost]
@@ -39,14 +46,37 @@ namespace MyWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Tạo mã nhân viên tự động
+                nhanVien.ma_nhan_vien = GenerateUniqueEmployeeCode();
+
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Thêm nhân viên thành công!";
-                return RedirectToAction("Index", "NhanVien");
+                return RedirectToAction("Index");
             }
             TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm nhân viên.";
             return View(nhanVien);
         }
+
+        // Phương thức để tạo mã nhân viên tự động duy nhất
+        private string GenerateUniqueEmployeeCode()
+        {
+            var lastEmployee = _context.NhanVien
+                .OrderByDescending(e => e.ma_nhan_vien)
+                .FirstOrDefault();
+
+            if (lastEmployee == null)
+            {
+                return "NV001"; // Hoặc một mã khởi đầu khác nếu không có nhân viên nào
+            }
+
+            string lastCode = lastEmployee.ma_nhan_vien;
+            string newCode = "NV" + (int.Parse(lastCode.Substring(2)) + 1).ToString("D3");
+
+            return newCode;
+        }
+
+
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -69,19 +99,14 @@ namespace MyWebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var nhanVien = await _context.NhanVien.FindAsync(id);
             if (nhanVien == null)
             {
                 return NotFound();
             }
-            return PartialView("_EditEmployeeModal", nhanVien);
+            return PartialView("_EditEmployeeModal", nhanVien); // Return the view with the employee data
         }
 
         [HttpPost]
@@ -99,6 +124,8 @@ namespace MyWebApp.Controllers
                 {
                     _context.Update(nhanVien);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Cập nhật nhân viên thành công!";
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -111,10 +138,10 @@ namespace MyWebApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return PartialView("_EditEmployeeModal", nhanVien);
+            return View(nhanVien);
         }
+
 
         private bool NhanVienExists(int id)
         {
