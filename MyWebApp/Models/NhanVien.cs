@@ -13,7 +13,7 @@ namespace MyWebApp.Models
     public string noi_cap_cmnd { get; set; }
     public string dia_chi { get; set; }
     public string so_dien_thoai { get; set; }
-    public string? so_dien_thoai_co_dinh { get; set; } // Nullable vì có thể không có
+    public string? so_dien_thoai_co_dinh { get; set; } 
     public string email { get; set; }
     public string so_tai_khoan_ngan_hang { get; set; }
     public string ten_ngan_hang { get; set; }

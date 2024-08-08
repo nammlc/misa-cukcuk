@@ -1,44 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MyWebApp.Data;
-using MyWebApp.Models;
-using X.PagedList;
+using Dapper;
+using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
+using System.Linq;
+using X.PagedList;
+using MyWebApp.Models;
 using X.PagedList.Extensions;
 
 namespace MyWebApp.Controllers
 {
     public class NhanVienController : Controller
     {
-        private readonly MyDbContext _context;
+        private readonly string _connectionString;
 
-        public NhanVienController(MyDbContext context)
+        public NhanVienController(IConfiguration configuration)
         {
-            _context = context;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         // Hiển thị danh sách nhân viên với phân trang
         public async Task<IActionResult> Index(string searchQuery, int page = 1)
         {
             int pageSize = 10;
-            var nhanViens = _context.NhanVien.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchQuery))
+            using (var db = new MySqlConnection(_connectionString))
             {
-                nhanViens = nhanViens.Where(nv => nv.ma_nhan_vien.Contains(searchQuery) || nv.ten_nhan_vien.Contains(searchQuery));
+                string query = "SELECT * FROM NhanVien WHERE @SearchQuery IS NULL OR ma_nhan_vien LIKE @SearchQuery OR ten_nhan_vien LIKE @SearchQuery";
+                var nhanViens = (await db.QueryAsync<NhanVien>(query, new { SearchQuery = "%" + searchQuery + "%" })).ToList();
+                var pagedNhanViens = nhanViens.ToPagedList(page, pageSize);
+                ViewBag.SearchQuery = searchQuery;
+                return View(pagedNhanViens);
             }
-
-            var pagedNhanViens = nhanViens.ToPagedList(page, pageSize);
-            ViewBag.SearchQuery = searchQuery;
-
-            return View(pagedNhanViens);
         }
+
         // Hiển thị form tạo mới nhân viên
         public IActionResult Create()
         {
             return View();
         }
-
 
         // Xử lý việc tạo mới nhân viên
         [HttpPost]
@@ -46,11 +44,14 @@ namespace MyWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Tạo mã nhân viên tự động
                 nhanVien.ma_nhan_vien = GenerateUniqueEmployeeCode();
 
-                _context.Add(nhanVien);
-                await _context.SaveChangesAsync();
+                using (var db = new MySqlConnection(_connectionString))
+                {
+                    string query = "INSERT INTO NhanVien (ten_nhan_vien, ma_nhan_vien, ngay_sinh, gioi_tinh, vi_tri, so_cmnd, ngay_cap_cmnd, noi_cap_cmnd, dia_chi, so_dien_thoai, so_dien_thoai_co_dinh, email, so_tai_khoan_ngan_hang, ten_ngan_hang, chi_nhanh_ngan_hang) VALUES (@ten_nhan_vien, @ma_nhan_vien, @ngay_sinh, @gioi_tinh, @vi_tri, @so_cmnd, @ngay_cap_cmnd, @noi_cap_cmnd, @dia_chi, @so_dien_thoai, @so_dien_thoai_co_dinh, @email, @so_tai_khoan_ngan_hang, @ten_ngan_hang, @chi_nhanh_ngan_hang)";
+                    await db.ExecuteAsync(query, nhanVien);
+                }
+
                 TempData["SuccessMessage"] = "Thêm nhân viên thành công!";
                 return RedirectToAction("Index");
             }
@@ -61,57 +62,57 @@ namespace MyWebApp.Controllers
         // Phương thức để tạo mã nhân viên tự động duy nhất
         private string GenerateUniqueEmployeeCode()
         {
-            var lastEmployee = _context.NhanVien
-                .OrderByDescending(e => e.ma_nhan_vien)
-                .FirstOrDefault();
-
-            if (lastEmployee == null)
+            using (var db = new MySqlConnection(_connectionString))
             {
-                return "NV001"; // Hoặc một mã khởi đầu khác nếu không có nhân viên nào
+                string query = "SELECT ma_nhan_vien FROM NhanVien ORDER BY ma_nhan_vien DESC LIMIT 1";
+                var lastEmployeeCode = db.QueryFirstOrDefault<string>(query);
+
+                if (lastEmployeeCode == null)
+                {
+                    return "NV001";
+                }
+
+                int newCodeNumber = int.Parse(lastEmployeeCode.Substring(2)) + 1;
+                return "NV" + newCodeNumber.ToString("D3");
             }
-
-            string lastCode = lastEmployee.ma_nhan_vien;
-            string newCode = "NV" + (int.Parse(lastCode.Substring(2)) + 1).ToString("D3");
-
-            return newCode;
         }
 
-
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var nhanVien = _context.NhanVien.Find(id);
-            if (nhanVien == null)
+            using (var db = new MySqlConnection(_connectionString))
             {
-                return NotFound("Nhân viên không tồn tại.");
-            }
+                string query = "DELETE FROM NhanVien WHERE id = @Id";
+                var affectedRows = await db.ExecuteAsync(query, new { Id = id });
 
-            try
-            {
-                _context.NhanVien.Remove(nhanVien);
-                _context.SaveChanges();
+                if (affectedRows == 0)
+                {
+                    return NotFound("Nhân viên không tồn tại.");
+                }
+
                 return Ok("Xóa thành công.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Lỗi hệ thống: " + ex.Message);
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var nhanVien = await _context.NhanVien.FindAsync(id);
-            if (nhanVien == null)
+            using (var db = new MySqlConnection(_connectionString))
             {
-                return NotFound();
+                string query = "SELECT * FROM NhanVien WHERE id = @Id";
+                var nhanVien = await db.QueryFirstOrDefaultAsync<NhanVien>(query, new { Id = id });
+
+                if (nhanVien == null)
+                {
+                    return NotFound();
+                }
+                return PartialView("_EditEmployeeModal", nhanVien);
             }
-            return PartialView("_EditEmployeeModal", nhanVien); // Return the view with the employee data
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,ten_nhan_vien,ma_nhan_vien,ngay_sinh,gioi_tinh,vi_tri,so_cmnd,ngay_cap_cmnd,noi_cap_cmnd,dia_chi,so_dien_thoai,so_dien_thoai_co_dinh,email,so_tai_khoan_ngan_hang,ten_ngan_hang,chi_nhanh_ngan_hang")] NhanVien nhanVien)
+        public async Task<IActionResult> Edit(int id, NhanVien nhanVien)
         {
             if (id != nhanVien.id)
             {
@@ -120,35 +121,21 @@ namespace MyWebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                using (var db = new MySqlConnection(_connectionString))
                 {
-                    _context.Update(nhanVien);
-                    await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = "Cập nhật nhân viên thành công!";
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NhanVienExists(nhanVien.id))
+                    string query = "UPDATE NhanVien SET ten_nhan_vien = @ten_nhan_vien, ma_nhan_vien = @ma_nhan_vien, ngay_sinh = @ngay_sinh, gioi_tinh = @gioi_tinh, vi_tri = @vi_tri, so_cmnd = @so_cmnd, ngay_cap_cmnd = @ngay_cap_cmnd, noi_cap_cmnd = @noi_cap_cmnd, dia_chi = @dia_chi, so_dien_thoai = @so_dien_thoai, so_dien_thoai_co_dinh = @so_dien_thoai_co_dinh, email = @email, so_tai_khoan_ngan_hang = @so_tai_khoan_ngan_hang, ten_ngan_hang = @ten_ngan_hang, chi_nhanh_ngan_hang = @chi_nhanh_ngan_hang WHERE id = @id";
+                    var affectedRows = await db.ExecuteAsync(query, nhanVien);
+
+                    if (affectedRows == 0)
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    TempData["SuccessMessage"] = "Cập nhật nhân viên thành công!";
+                    return RedirectToAction(nameof(Index));
                 }
             }
             return View(nhanVien);
         }
-
-
-        private bool NhanVienExists(int id)
-        {
-            return _context.NhanVien.Any(e => e.id == id);
-        }
-
-
-
     }
 }

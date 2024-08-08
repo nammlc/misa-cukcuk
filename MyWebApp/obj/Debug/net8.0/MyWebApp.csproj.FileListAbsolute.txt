@@ -52,3 +52,10 @@ C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Microsof
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\MySqlConnector.dll
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\X.PagedList.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\Dapper.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\lcong\OneDrive\Tài liệu\misa-tt\MyWebApp\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
